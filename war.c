@@ -96,3 +96,135 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+
+// ============================================================================
+//
+// >> A partir daqui começa a implementação da PARTE 1 - Nível Novato
+//
+// ============================================================================
+
+// ----------------------------------------------
+// Projeto: Nível Novato: Cadastro Inicial dos Territórios
+// Autor: Fabrício Vieira de Souza
+// Data: 30/09/2025
+// Objetivo:
+// Criar uma struct chamada Territorio.
+// Usar um vetor estático de 5 elementos para armazenar os territórios.
+// Cadastrar os dados de cada território: Nome, Cor do Exército, e Número de Tropas.
+// Exibir o estado atual do mapa.
+// ----------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//--constantes globais
+#define MAX_TERRITORIOS 5
+#define TAM_STRING 30
+
+//--define estrutura struct
+struct Territorio
+{
+    char nome[TAM_STRING];
+    char cor[TAM_STRING];
+    int tropas;
+};
+
+//--limpar buffer de entrada
+void LimparBufferEntrada()
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+}
+
+int main()
+{
+    struct Territorio territorios[MAX_TERRITORIOS];
+    int totalTerritorios = 0;
+    int opcao;
+
+    do
+    {
+        printf("=============================================\n");
+        printf("      SISTEMA DE CADASTRO DE TERRITORIOS\n");
+        printf("=============================================\n");
+        printf("1 - Cadastrar Novo Territorio\n");
+        printf("2 - Listar Todos os Territorios\n");
+        printf("0 - Sair\n");
+        printf("---------------------------------------------\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+        LimparBufferEntrada();
+
+        switch (opcao)
+        {
+        case 1:
+            printf("---Cadastro de Novo Territorio---\n");
+
+            if (totalTerritorios < MAX_TERRITORIOS)
+            {
+                printf("Digite o Nome do Territorio: ");
+                fgets(territorios[totalTerritorios].nome, TAM_STRING, stdin);
+
+                printf("Digite a Cor do Exercito: ");
+                fgets(territorios[totalTerritorios].cor, TAM_STRING, stdin);
+
+                printf("Digite a quantidade de Tropas: ");
+                scanf("%d", &territorios[totalTerritorios].tropas);
+                LimparBufferEntrada();
+
+                // Removendo \n das strings
+                territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")] = '\0';
+                territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")] = '\0';
+
+                totalTerritorios++;
+                printf("\nTerritorio Cadastrado com Sucesso!\n");
+            }
+            else
+            {
+                printf("\nLimite de territorios atingido! Não é possível cadastrar mais.\n");
+            }
+
+            printf("\nPressione ENTER para continuar...");
+            getchar();
+            break;
+
+        case 2:
+            printf("---Lista de Territorios Cadastrados---\n");
+
+            if (totalTerritorios == 0)
+            {
+                printf("Nenhum territorio cadastrado.\n");
+            }
+            else
+            {
+                for (int i = 0; i < totalTerritorios; i++)
+                {
+                    printf("--------------------------------------\n");
+                    printf("TERRITORIO %d\n", i + 1);
+                    printf("Nome: %s\n", territorios[i].nome);
+                    printf("Cor do Exercito: %s\n", territorios[i].cor);
+                    printf("Tropas: %d\n", territorios[i].tropas);
+                }
+                printf("--------------------------------------\n");
+            }
+
+            printf("\nPressione ENTER para continuar...");
+            getchar();
+            break;
+
+        case 0:
+            printf("\nSaindo do sistema...\n");
+            break;
+
+        default:
+            printf("\nOpção invalida! Tente novamente.\n");
+            printf("\nPressione ENTER para continuar...");
+            getchar();
+            break;
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
