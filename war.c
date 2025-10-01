@@ -106,6 +106,7 @@
 /* ============================================================================
    PROJETO WAR - NÍVEL MESTRE
    Autor: Fabrício Vieira de Souza
+   Matricula:202501549322
    Data: 01/10/2025
    Objetivo: manter o N2 (cadastro manual, listagem, ataque) e adicionar
              MISSÕES (aleatórias, alocadas dinamicamente), verificação,
